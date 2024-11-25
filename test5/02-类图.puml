@@ -1,0 +1,92 @@
+@startuml
+class Patient {
+    - 患者ID: int
+    - 姓名: String
+    - 年龄: int
+    - 性别: String
+    - 联系方式: String
+    + 挂号(): void
+    + 查看病历(): void
+}
+
+class Doctor {
+    - 医生ID: int
+    - 姓名: String
+    - 科室: String
+    - 职称: String
+    + 诊断病情(): DiagnosisResult
+    + 开处方(): Prescription
+    + 查看病历(): void
+}
+
+class Nurse {
+    - 护士ID: int
+    - 姓名: String
+    + 执行医嘱(): void
+    + 记录护理情况(): void
+}
+
+class Administrator {
+    - 管理员ID: int
+    - 姓名: String
+    + 管理排班(): void
+    + 管理药品库存(): void
+    + 管理医疗设备(): void
+    + 管理用户权限(): void
+    + 生成统计报表(): void
+}
+
+class DiagnosisResult {
+    - 结果ID: int
+    - 病情描述: String
+    - 建议治疗方案: String
+}
+
+class Prescription {
+    - 处方ID: int
+    - 医生: Doctor
+    - 患者: Patient
+    - 药品清单: List<Drug>
+    - 用法用量说明: String
+    + 获取处方详情(): String
+}
+
+class Drug {
+    - 药品ID: int
+    - 药品名称: String
+    - 规格: String
+    - 库存数量: int
+    + 更新库存(数量: int): void
+}
+
+class MedicalRecord {
+    - 病历ID: int
+    - 患者: Patient
+    - 就诊时间: Date
+    - 诊断结果: DiagnosisResult
+    - 治疗过程记录: String
+    + 添加治疗记录(记录: String): void
+    + 获取病历详情(): String
+}
+
+class MedicalEquipment {
+    - 设备ID: int
+    - 设备名称: String
+    - 设备状态: String
+    - 购置时间: Date
+    + 维护设备(): void
+    + 获取设备状态(): String
+}
+Patient "1" *-- "0..*" MedicalRecord : 拥有
+Doctor "1" *-- "0..*" DiagnosisResult : 生成
+Doctor "1" *-- "0..*" Prescription : 开具
+Doctor "1" *-- "0..*" MedicalRecord : 更新
+Nurse "1" *-- "0..*" MedicalRecord : 更新
+Administrator "1" *-- "0..*" Doctor : 管理
+Administrator "1" *-- "0..*" Nurse : 管理
+Administrator "1" *-- "0..*" Drug : 管理
+Administrator "1" *-- "0..*" MedicalEquipment : 管理
+Prescription "1" *-- "1" Doctor : 由...开具
+Prescription "1" *-- "1" Patient : 针对...开具
+Prescription "1" *-- "*" Drug : 包含
+@enduml

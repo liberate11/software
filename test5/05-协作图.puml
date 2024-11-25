@@ -1,0 +1,17 @@
+@startuml
+!define Patient "患者"
+!define Doctor "医生"
+!define Nurse "护士"
+!define RegistrationModule "挂号模块"
+!define MedicalRecordModule "病历模块"
+!define PharmacyModule "药房模块"
+
+Patient --> RegistrationModule : 提交挂号信息
+RegistrationModule --> Patient : 返回挂号结果
+Patient --> Doctor : 描述病情
+Doctor <-> MedicalRecordModule : 查询/更新病历信息
+Doctor --> Nurse : 下达护理医嘱
+Nurse --> Doctor : 反馈护理情况
+Doctor --> PharmacyModule : 开具药方
+PharmacyModule --> Patient : 发放药品
+@enduml

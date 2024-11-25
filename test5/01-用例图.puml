@@ -1,0 +1,33 @@
+@startuml
+left to right direction
+
+actor "患者" as Patient
+actor "医生" as Doctor
+actor "护士" as Nurse
+actor "管理员" as Administrator
+
+rectangle "医院信息管理系统" {
+    usecase "挂号" as Register
+    usecase "查看病历" as ViewMedicalRecord
+    usecase "开处方" as Prescribe
+    usecase "执行医嘱" as ExecuteInstruction
+    usecase "护理记录" as NursingRecord
+    usecase "排班管理" as ShiftManagement
+    usecase "药品管理" as DrugManagement
+    usecase "设备管理" as EquipmentManagement
+    usecase "用户权限管理" as UserPermissionManagement
+    usecase "统计报表生成" as ReportGeneration
+
+    Patient --> Register
+    Patient --> ViewMedicalRecord
+    Doctor --> Prescribe
+    Doctor --> ViewMedicalRecord
+    Nurse --> ExecuteInstruction
+    Nurse --> NursingRecord
+    Administrator --> ShiftManagement
+    Administrator --> DrugManagement
+    Administrator --> EquipmentManagement
+    Administrator --> UserPermissionManagement
+    Administrator --> ReportGeneration
+}
+@enduml

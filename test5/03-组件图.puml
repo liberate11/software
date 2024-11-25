@@ -1,0 +1,58 @@
+@startuml
+!define WEBAPP_COLOR #FF9933
+!define SERVICE_LAYER_COLOR #66CCFF
+!define DATA_ACCESS_LAYER_COLOR #99FF99
+!define DATABASE_COLOR #CCCCCC
+
+' 定义组件
+component "医院信息管理系统前端界面" as FrontEnd {
+    interface "用户登录"
+    interface "挂号操作界面"
+    interface "病历查看界面"
+    interface "排班管理界面"
+    interface "药品管理界面"
+    interface "设备管理界面"
+    interface "用户权限管理界面"
+    interface "统计报表展示界面"
+    stereotype WEBAPP_COLOR
+}
+
+component "业务逻辑服务层" as ServiceLayer {
+    interface "患者挂号服务"
+    interface "病历管理服务"
+    interface "排班管理服务"
+    interface "药品库存管理服务"
+    interface "设备维护管理服务"
+    interface "用户权限验证服务"
+    interface "报表生成服务"
+    stereotype SERVICE_LAYER_COLOR
+}
+
+component "数据访问层" as DataAccessLayer {
+    interface "患者数据访问"
+    interface "医生数据访问"
+    interface "护士数据访问"
+    interface "药品数据访问"
+    interface "设备数据访问"
+    interface "权限数据访问"
+    interface "报表数据访问"
+    stereotype DATA_ACCESS_LAYER_COLOR
+}
+
+component "数据库" as Database {
+    interface "患者数据表"
+    interface "医生数据表"
+    interface "护士数据表"
+    interface "药品库存表"
+    interface "设备信息表"
+    interface "用户权限表"
+    interface "统计报表表"
+    stereotype DATABASE_COLOR
+}
+
+' 组件之间的依赖关系
+FrontEnd --> ServiceLayer : 使用服务
+ServiceLayer --> DataAccessLayer : 调用数据访问接口
+DataAccessLayer --> Database : 读写数据
+
+@enduml

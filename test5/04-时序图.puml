@@ -1,0 +1,19 @@
+@startuml
+actor Patient as P
+actor Doctor as D
+control AppointmentSystem as AS
+control MedicalRecordSystem as MRS
+
+P -> AS: 请求预约医生
+AS -> AS: 检查医生排班情况
+AS -> D: 发送预约请求
+D -> AS: 确认/拒绝预约
+AS -> P: 返回预约结果
+
+P -> AS: 到达医院签到（按预约时间）
+AS -> D: 通知医生患者已签到
+D -> MRS: 创建医疗记录（开始诊疗）
+MRS -> MRS: 记录诊断信息、治疗计划等
+MRS -> P: 允许患者查看部分医疗记录（如诊断结论）
+
+@enduml
